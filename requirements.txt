@@ -1,2 +1,2 @@
-pycryptodome==3.10.1
+pycryptodome==3.11.0
 pyotp==2.6.0
