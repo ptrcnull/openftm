@@ -14,8 +14,10 @@ DEVICE_ID = 'eefd7d4837294e94'
 
 SERIAL = 'TOKENSERIALunknown'
 
+
 def unpad(s):
     return s[0:-ord(s[-1])]
+
 
 def decrypt(cipher, key):
     sha256 = hashlib.sha256()
@@ -25,6 +27,7 @@ def decrypt(cipher, key):
     aes = AES.new(digest, AES.MODE_CBC, iv)
     decrypted = aes.decrypt(base64.b64decode(cipher))
     return unpad(str(decrypted, "utf-8"))
+
 
 uuid_key = DEVICE_ID + SERIAL[11:]
 print("UUID KEY: %s" % uuid_key)
@@ -40,5 +43,5 @@ totp_secret = bytes.fromhex(decrypted_seed)
 totp_secret_encoded = str(base64.b32encode(totp_secret), "utf-8")
 print("TOTP SECRET: %s" % totp_secret_encoded)
 
-totp = TOTP(totp_secret_encoded, interval = 60)
+totp = TOTP(totp_secret_encoded, interval=60)
 print("Current TOTP: %s" % totp.now())
