@@ -5,6 +5,7 @@
 #
 import hashlib
 import base64
+import qrcode
 from Cryptodome.Cipher import AES
 from pyotp import TOTP
 
@@ -45,3 +46,8 @@ print("TOTP SECRET: %s" % totp_secret_encoded)
 
 totp = TOTP(totp_secret_encoded, interval=60)
 print("Current TOTP: %s" % totp.now())
+
+str=totp.provisioning_uri(name='vpn', issuer_name='fortivpn')
+img=qrcode.make(str)
+type(img)
+img.show()
